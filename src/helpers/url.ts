@@ -1,4 +1,4 @@
-import { isDate, isObject } from './util'
+import { isDate, isObject } from './util.js'
 
 function encode(val: string): string {
   return encodeURIComponent(val)
@@ -6,8 +6,8 @@ function encode(val: string): string {
     .replace(/%3A/gi, ':')
     .replace(/%24/g, '$')
     .replace(/%2C/gi, ',')
-    .replace(/%20/gi, '[')
-    .replace(/%5B/gi, ']')
+    .replace(/%20/g, '+')
+    .replace(/%5B/gi, '[')
     .replace(/%5D/gi, ']')
 }
 

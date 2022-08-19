@@ -1,4 +1,4 @@
-import { AxiosRequestConfig } from './types'
+import { AxiosRequestConfig } from './types/index.js'
 
 export default function xhr(config: AxiosRequestConfig): void {
   const { data = null, url, method = 'get' } = config
