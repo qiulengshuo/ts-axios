@@ -67,3 +67,46 @@ axios({
     bar: 'baz',
   },
 })
+
+// data 为对象
+axios({
+  method: 'post',
+  url: '/url/post',
+  data: {
+    a: 1,
+    b: 2,
+  },
+})
+
+// 给 data 为对象的情况添加 application/json;charset=utf-8
+axios({
+  method: 'post',
+  url: '/url/post',
+  data: {
+    a: 1,
+    b: 2,
+  },
+})
+
+// 当 data 为对象并且 content-type 有值
+axios({
+  method: 'post',
+  url: '/url/post',
+  headers: {
+    'content-type': 'application/json;charset=utf-8',
+  },
+  data: {
+    a: 1,
+    b: 2,
+  },
+})
+
+// 当 data 为其他对象，浏览器会自动加 content-type
+
+const paramsString = 'q=URLUtils.searchParams&topic=api'
+const searchParams = new URLSearchParams(paramsString)
+axios({
+  method: 'post',
+  url: '/url/post',
+  data: searchParams,
+})

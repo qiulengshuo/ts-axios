@@ -1,4 +1,4 @@
-import { isDate, isObject } from './util.js'
+import { isDate, isPlainObject } from './util.js'
 
 function encode(val: string): string {
   return encodeURIComponent(val)
@@ -42,7 +42,7 @@ export function buildURL(url: string, params?: any): string {
       // val 为日期 -> key: 2023-04-01T05:55:39.030Z
       if (isDate(val)) {
         val = val.toISOString()
-      } else if (isObject(val)) {
+      } else if (isPlainObject(val)) {
         // val 为对象 -> key: '{ 'a': 1 }'
         val = JSON.stringify(val)
       }
