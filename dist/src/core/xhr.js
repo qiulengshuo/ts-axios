@@ -1,9 +1,9 @@
-import { createError } from './helpers/error.js';
-import { parseHeaders } from './helpers/headers.js';
+import { createError } from '../helpers/error.js';
+import { parseHeaders } from '../helpers/headers.js';
 export default function xhr(config) {
-    return new Promise((resolve, reject) => {
-        const { data = null, url, method = 'get', headers, responseType, timeout, } = config;
-        let request = new XMLHttpRequest();
+    return new Promise(function (resolve, reject) {
+        var _a = config.data, data = _a === void 0 ? null : _a, url = config.url, _b = config.method, method = _b === void 0 ? 'get' : _b, headers = config.headers, responseType = config.responseType, timeout = config.timeout;
+        var request = new XMLHttpRequest();
         if (responseType) {
             request.responseType = responseType;
         }
@@ -18,15 +18,15 @@ export default function xhr(config) {
             if (request.status === 0) {
                 return;
             }
-            const responseHeaders = parseHeaders(request.getAllResponseHeaders());
-            const responseData = responseType !== 'text' ? request.response : request.responseText;
-            const response = {
+            var responseHeaders = parseHeaders(request.getAllResponseHeaders());
+            var responseData = responseType !== 'text' ? request.response : request.responseText;
+            var response = {
                 data: responseData,
                 status: request.status,
                 statusText: request.statusText,
                 headers: responseHeaders,
-                config,
-                request,
+                config: config,
+                request: request,
             };
             handleResponse(response);
         };
@@ -36,11 +36,11 @@ export default function xhr(config) {
         };
         // 超时回调
         request.ontimeout = function handleTimeout() {
-            reject(createError(`Timeout of ${timeout} ms exceeded`, config, 'ECONNABORTED', request));
+            reject(createError("Timeout of ".concat(timeout, " ms exceeded"), config, 'ECONNABORTED', request));
         };
         request.open(method.toUpperCase(), url, true);
         // 添加请求头
-        Object.keys(headers).forEach((name) => {
+        Object.keys(headers).forEach(function (name) {
             if (data === null && name.toLowerCase() === 'content-type') {
                 delete headers[name];
             }
@@ -53,7 +53,7 @@ export default function xhr(config) {
                 resolve(response);
             }
             else {
-                reject(createError(`Request failed with status code ${response.status}`, config, null, request, response));
+                reject(createError("Request failed with status code ".concat(response.status), config, null, request, response));
             }
         }
     });

@@ -3,7 +3,7 @@ function normalizeHeaderName(headers, normalizedName) {
     if (!headers) {
         return;
     }
-    Object.keys(headers).forEach((name) => {
+    Object.keys(headers).forEach(function (name) {
         if (name !== normalizedName &&
             name.toUpperCase() === normalizedName.toUpperCase()) {
             headers[normalizedName] = headers[name];
@@ -22,12 +22,12 @@ export function processHeaders(headers, data) {
     return headers;
 }
 export function parseHeaders(headers) {
-    let parsed = Object.create(null);
+    var parsed = Object.create(null);
     if (!headers) {
         return parsed;
     }
-    headers.split('\r\n').forEach((line) => {
-        let [key, val] = line.split(':');
+    headers.split('\r\n').forEach(function (line) {
+        var _a = line.split(':'), key = _a[0], val = _a[1];
         key = key.trim().toLowerCase();
         if (!key) {
             return;

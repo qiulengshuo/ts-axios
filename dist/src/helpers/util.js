@@ -1,4 +1,4 @@
-const toString = Object.prototype.toString;
+var toString = Object.prototype.toString;
 export function isDate(val) {
     return toString.call(val) === '[object Date]';
 }
@@ -7,4 +7,11 @@ export function isDate(val) {
 // }
 export function isPlainObject(val) {
     return toString.call(val) === '[object Object]';
+}
+export function extend(to, from) {
+    for (var key in from) {
+        ;
+        to[key] = from[key];
+    }
+    return to;
 }

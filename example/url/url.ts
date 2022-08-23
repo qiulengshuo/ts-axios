@@ -1,4 +1,4 @@
-import axios from '../../src/index.js'
+import axios, { AxiosError } from '../../src/index.js'
 
 // // params 参数属性有数组类型
 // axios({
@@ -111,27 +111,82 @@ import axios from '../../src/index.js'
 //   data: searchParams,
 // })
 
-// 返回的类型默认是字符串
-axios({
-  method: 'post',
-  url: '/url/post',
-  data: {
-    a: 1,
-    b: 2,
-  },
-}).then((res) => {
-  console.log(res)
-})
+// // 返回的类型默认是字符串
+// axios({
+//   method: 'post',
+//   url: '/url/post',
+//   data: {
+//     a: 1,
+//     b: 2,
+//   },
+// }).then((res) => {
+//   console.log(res)
+// })
 
-// 设置返回类型是 json 对象
-axios({
-  method: 'post',
-  url: '/url/post',
-  responseType: 'json',
-  data: {
-    a: 1,
-    b: 2,
-  },
-}).then((res) => {
-  console.log(res)
-})
+// // 设置返回类型是 json 对象
+// axios({
+//   method: 'post',
+//   url: '/url/post',
+//   responseType: 'json',
+//   data: {
+//     a: 1,
+//     b: 2,
+//   },
+// }).then((res) => {
+//   console.log(res)
+// })
+
+// // 404
+// axios({
+//   method: 'get',
+//   url: '/error/get1',
+// })
+//   .then((res) => {
+//     console.log(res)
+//   })
+//   .catch((e) => {
+//     console.log(e)
+//   })
+
+// // 非200状态码
+// axios({
+//   method: 'get',
+//   url: '/error/get',
+// })
+//   .then((res) => {
+//     console.log(res)
+//   })
+//   .catch((e) => {
+//     console.log(e)
+//   })
+
+// // 网络错误
+// setTimeout(() => {
+//   axios({
+//     method: 'get',
+//     url: '/error/get',
+//   })
+//     .then((res) => {
+//       console.log(res)
+//     })
+//     .catch((e) => {
+//       console.log(e)
+//     })
+// }, 5000)
+
+// // 超时错误
+// axios({
+//   method: 'get',
+//   url: '/error/timeout',
+//   timeout: 1000,
+// })
+//   .then((res) => {
+//     console.log(res)
+//   })
+//   .catch((e: AxiosError) => {
+//     console.log(e.message)
+//     console.log(e.code)
+//     console.log(e.isAxiosError)
+//     console.log(e.config)
+//     console.log(e.request)
+//   })
