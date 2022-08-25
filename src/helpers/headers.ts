@@ -1,4 +1,5 @@
-import { isPlainObject } from './util.js'
+import { Method } from '../types/index.js'
+import { deepMerge, isPlainObject } from './util.js'
 
 function normalizeHeaderName(headers: any, normalizedName: string): void {
   if (!headers) {
@@ -36,13 +37,39 @@ export function parseHeaders(headers: string): any {
   headers.split('\r\n').forEach((line) => {
     let [key, val] = line.split(':')
     key = key.trim().toLowerCase()
-    if(!key) {
+    if (!key) {
       return
     }
-    if(val) {
+    if (val) {
       val = val.trim()
     }
     parsed[key] = val
   })
   return parsed
+}
+
+export function flattenHeaders(headers: any, method: Method): any {
+  if (!headers) {
+    return headers
+  }
+
+  // merge common对象 和 方法对象 和原来的 headers
+  headers = deepMerge(headers.common, headers[method], headers)
+
+  const methodsToDelete = [
+    'delete',
+    'get',
+    'head',
+    'options',
+    'post',
+    'put',
+    'patch',
+    'common',
+  ]
+  // 剔除重复的common method对象
+  methodsToDelete.forEach((method) => {
+    delete headers[method]
+  })
+
+  return headers
 }

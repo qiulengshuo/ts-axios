@@ -1,6 +1,13 @@
 import dispatchRequest from './dispatchRequest.js';
+import InterceptorManager from './interceptorManager.js';
+import mergeConfig from './mergeConfig.js';
 var Axios = /** @class */ (function () {
-    function Axios() {
+    function Axios(initConfig) {
+        this.defaults = initConfig;
+        this.interceptors = {
+            request: new InterceptorManager(),
+            response: new InterceptorManager(),
+        };
     }
     Axios.prototype.request = function (url, config) {
         if (typeof url === 'string') {
@@ -12,7 +19,25 @@ var Axios = /** @class */ (function () {
         else {
             config = url;
         }
-        return dispatchRequest(config);
+        config = mergeConfig(this.defaults, config);
+        var chain = [
+            {
+                resolved: dispatchRequest,
+                rejected: undefined,
+            },
+        ];
+        this.interceptors.request.forEach(function (interceptor) {
+            chain.unshift(interceptor);
+        });
+        this.interceptors.response.forEach(function (interceptor) {
+            chain.push(interceptor);
+        });
+        var promise = Promise.resolve(config);
+        while (chain.length) {
+            var _a = chain.shift(), resolved = _a.resolved, rejected = _a.rejected;
+            promise = promise.then(resolved, rejected);
+        }
+        return promise;
     };
     Axios.prototype.get = function (url, config) {
         return this._requestMethodWithoutData('get', url, config);

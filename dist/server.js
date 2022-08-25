@@ -60,46 +60,62 @@ app.use(require('koa-static')(__dirname + '/'))
 //   })
 // }
 
-registerExtendRouter()
+// registerExtendRouter()
 
-function registerExtendRouter () {
-  router.get('/extend/get', async (ctx, next) => {
-    ctx.body = 123
-  })
+// function registerExtendRouter () {
+//   router.get('/extend/get', async (ctx, next) => {
+//     ctx.body = 123
+//   })
 
-  router.options('/extend/options', async (ctx, next) => {
-    ctx.body = 'options'
-  })
+//   router.options('/extend/options', async (ctx, next) => {
+//     ctx.body = 'options'
+//   })
 
-  router.delete('/extend/delete', async (ctx, next) => {
-    ctx.body = 'delete'
-  })
+//   router.delete('/extend/delete', async (ctx, next) => {
+//     ctx.body = 'delete'
+//   })
 
-  router.head('/extend/head', async (ctx, next) => {
-    ctx.body = 'head'
-  })
+//   router.head('/extend/head', async (ctx, next) => {
+//     ctx.body = 'head'
+//   })
 
-  router.post('/extend/post', async (ctx, next) => {
-    ctx.body = 'post'
-  })
+//   router.post('/extend/post', async (ctx, next) => {
+//     ctx.body = 'post'
+//   })
 
-  router.put('/extend/put', async (ctx, next) => {
-    ctx.body = 'put'
-  })
+//   router.put('/extend/put', async (ctx, next) => {
+//     ctx.body = 'put'
+//   })
 
-  router.patch('/extend/patch', async (ctx, next) => {
-    ctx.body = 'patch'
-  })
+//   router.patch('/extend/patch', async (ctx, next) => {
+//     ctx.body = 'patch'
+//   })
 
-  router.get('/extend/user', async (ctx, next) => {
-    ctx.body = {
-      code: 0,
-      message: 'ok',
-      result: {
-        name: 'jack',
-        age: 18
-      }
-    }
+//   router.get('/extend/user', async (ctx, next) => {
+//     ctx.body = {
+//       code: 0,
+//       message: 'ok',
+//       result: {
+//         name: 'jack',
+//         age: 18
+//       }
+//     }
+//   })
+// }
+
+// registerInterceptorsRouter()
+
+// function registerInterceptorsRouter () {
+//   router.get('/interceptor/get', async (ctx, next) => {
+//     ctx.body = "hello"
+//   })
+// }
+
+registerConfigRouter()
+
+function registerConfigRouter () {
+  router.post('/config/post', async (ctx, next) => {
+    ctx.body = ctx.request.body
   })
 }
 

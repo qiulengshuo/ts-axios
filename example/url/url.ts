@@ -111,7 +111,7 @@ import axios, { AxiosError } from '../../src/index.js'
 //   data: searchParams,
 // })
 
-// // 返回的类型默认是字符串
+// 返回的类型默认是字符串
 // axios({
 //   method: 'post',
 //   url: '/url/post',
