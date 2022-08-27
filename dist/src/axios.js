@@ -1,4 +1,5 @@
 import Axios from './core/Axios.js';
+import mergeConfig from './core/mergeConfig.js';
 import defaults from './defaults.js';
 import { extend } from './helpers/util.js';
 function createInstance(config) {
@@ -10,4 +11,7 @@ function createInstance(config) {
     return instance;
 }
 var axios = createInstance(defaults);
+axios.create = function create(config) {
+    return createInstance(mergeConfig(defaults, config));
+};
 export default axios;

@@ -1,6 +1,7 @@
 import { transformRequest, transformResponse } from '../helpers/data.js'
 import { flattenHeaders, processHeaders } from '../helpers/headers.js'
 import { buildURL } from '../helpers/url.js'
+import transform from "./transform.js"
 import {
   AxiosPromise,
   AxiosRequestConfig,
@@ -23,8 +24,7 @@ export default function dispatchRequest(
 // 对 config 参数数据做处理
 function processConfig(config: AxiosRequestConfig): void {
   config.url = transformURL(config)
-  config.headers = transformHeaders(config)
-  config.data = transformRequestData(config)
+  config.data = transform(config.data, config.headers, config.transformRequest)
   // 覆盖掉 headers，生成最终扁平化过后的 headers。
   config.headers = flattenHeaders(config.headers, config.method!)
 }
@@ -34,16 +34,7 @@ function transformURL(config: AxiosRequestConfig): string {
   return buildURL(url!, params)
 }
 
-function transformRequestData(config: AxiosRequestConfig): any {
-  return transformRequest(config.data)
-}
-
-function transformHeaders(config: AxiosRequestConfig): any {
-  const { headers = {}, data } = config
-  return processHeaders(headers, data)
-}
-
 function transformResponseData(res: AxiosResponse): AxiosResponse {
-  res.data = transformResponse(res.data)
+  res.data = transform(res.data, res.data, res.config.transformResponse)
   return res
 }

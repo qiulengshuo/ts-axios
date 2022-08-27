@@ -115,6 +115,8 @@ registerConfigRouter()
 
 function registerConfigRouter () {
   router.post('/config/post', async (ctx, next) => {
+    console.log(ctx.request.body)
+    console.log(typeof ctx.request.body)
     ctx.body = ctx.request.body
   })
 }

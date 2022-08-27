@@ -19,6 +19,7 @@ var Axios = /** @class */ (function () {
         else {
             config = url;
         }
+        // merge 默认配置和自定义配置 -> -> data为对象默认content-type: json -> 扁平化headers
         config = mergeConfig(this.defaults, config);
         var chain = [
             {
