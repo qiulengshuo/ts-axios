@@ -38,30 +38,31 @@ import axios, { AxiosTransformer } from '../../src/index.js'
 //   console.log(res.data)
 // })
 
-const instance = axios.create({
-  transformRequest: [
-    function (data) {
-      return 'a=1&b=2'
-    },
-    ...(axios.defaults.transformRequest as AxiosTransformer[]),
-  ],
-  transformResponse: [
-    ...(axios.defaults.transformResponse as AxiosTransformer[]),
-    function (data) {
-      if (typeof data === 'object') {
-        data.c = 3
-      }
-      return data
-    },
-  ],
-})
+// const instance = axios.create({
+//   transformRequest: [
+//     function (data) {
+//       return 'a=1&b=2'
+//     },
+//     ...(axios.defaults.transformRequest as AxiosTransformer[]),
+//   ],
+//   transformResponse: [
+//     ...(axios.defaults.transformResponse as AxiosTransformer[]),
+//     function (data) {
+//       if (typeof data === 'object') {
+//         data.c = 3
+//       }
+//       return data
+//     },
+//   ],
+// })
 
-instance({
-  url: '/config/post',
-  method: 'post',
-  data: {
-    a: 1,
-  },
-}).then((res) => {
-  console.log(res.data)
-})
+// instance({
+//   url: '/config/post',
+//   method: 'post',
+//   data: {
+//     a: 1,
+//   },
+// }).then((res) => {
+//   console.log(res.data)
+// })
+

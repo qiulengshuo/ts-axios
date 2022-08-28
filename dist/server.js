@@ -111,13 +111,28 @@ app.use(require('koa-static')(__dirname + '/'))
 //   })
 // }
 
-registerConfigRouter()
+// registerConfigRouter()
 
-function registerConfigRouter () {
-  router.post('/config/post', async (ctx, next) => {
-    console.log(ctx.request.body)
-    console.log(typeof ctx.request.body)
-    ctx.body = ctx.request.body
+// function registerConfigRouter () {
+//   router.post('/config/post', async (ctx, next) => {
+//     console.log(ctx.request.body)
+//     console.log(typeof ctx.request.body)
+//     ctx.body = ctx.request.body
+//   })
+// }
+
+registerCancelRouter()
+function registerCancelRouter () {
+  router.get('/cancel/get', async (ctx, res) => {
+    setTimeout(() => {
+      ctx.body = "hello"
+    }, 1000)
+  })
+
+  router.post('/cancel/post', async (ctx, res) => {
+    setTimeout(() => {
+      ctx.body = ctx.request.body
+    }, 1000)
   })
 }
 

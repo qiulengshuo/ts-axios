@@ -111,6 +111,7 @@
     "example/base/",
     "example/url/",
     "example/extends/",
-    "example/interceptors/"
+    "example/interceptors/",
+    "example/config/"
   ]
 }

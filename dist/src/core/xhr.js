@@ -2,7 +2,7 @@ import { createError } from '../helpers/error.js';
 import { parseHeaders } from '../helpers/headers.js';
 export default function xhr(config) {
     return new Promise(function (resolve, reject) {
-        var _a = config.data, data = _a === void 0 ? null : _a, url = config.url, _b = config.method, method = _b === void 0 ? 'get' : _b, headers = config.headers, responseType = config.responseType, timeout = config.timeout;
+        var _a = config.data, data = _a === void 0 ? null : _a, url = config.url, _b = config.method, method = _b === void 0 ? 'get' : _b, headers = config.headers, responseType = config.responseType, timeout = config.timeout, cancelToken = config.cancelToken;
         var request = new XMLHttpRequest();
         if (responseType) {
             request.responseType = responseType;
@@ -46,6 +46,12 @@ export default function xhr(config) {
             }
             request.setRequestHeader(name, headers[name]);
         });
+        if (cancelToken) {
+            cancelToken.promise.then(function (reason) {
+                request.abort();
+                reject(reason);
+            });
+        }
         // 发生请求体
         request.send(data);
         function handleResponse(response) {
